@@ -14,7 +14,19 @@ public class Project_WHYY : ModuleRules
 			"Project_WHYY",
 		});
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG" });
+		PublicDependencyModuleNames.AddRange(
+			new string[] 
+			{ 
+				"Core",
+				"CoreUObject",
+				"Engine",
+				"InputCore",
+				"UMG",
+				"GameplayTags",				// GameplayTags를 사용하기 위해(WHYCharacterMovementComponenet.h파일)
+				"GameplayTasks",
+                "GameplayAbilities",		// GameplayAbilities 플러그인을 사용
+				"AIModule",					// GenericTeamAgentInterface.h를 사용하기 위해
+            });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

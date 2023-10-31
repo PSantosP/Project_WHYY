@@ -14,7 +14,7 @@ struct FFrame;
 
 // 게임플레이 태그를 선언
 // PROJECT_WHYY_API는 이 태그를 다른 모듈에서 접근할 수 있도록 함
-//PROJECT_WHYY_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Gameplay_MovementStopped);
+PROJECT_WHYY_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Gameplay_MovementStopped);
 
  /**
  * FLyra 문자 접지 정보
@@ -64,7 +64,24 @@ public:
 	virtual void SimulateMovement(float DeltaTime) override;
 
 	virtual bool CanAttemptJump() const override;
-	
+
+	// 현재 Ground 정보를 반환
+	UFUNCTION(BlueprintCallable, Category = "WHYY|CharacterMovement")
+	const FWHYCharacterGroundInfo& GetGroundInfo();
+
+	// InAceeleration값이 변하지 않기 위해 const로 받아옴
+	// 그렇기에 InAcceleration이라는 매개변수는 읽기전용이다.
+	// 참조로 전달하는 이유는 복사를 수행하지 않으므로 메모리 사용을 줄일 수 있음
+	// 예기치 않은 수정방지를 위해
+	void SetReplicatedAcceleration(const FVector& InAcceleration);
+
+	// Get함수이기에 const로 읽기전용으로만 만듬
+	virtual FRotator GetDeltaRotation(float DeltaTime) const override;
+	virtual float GetMaxSpeed() const override;
+
+protected:
+
+	virtual void InitializeComponent() override;
 
 
 protected:
